@@ -1,0 +1,33 @@
+{
+  "name": "bolt-internal-sockets",
+  "description": "internal module used for various types of validations",
+  "version": "1.0.1",
+  "main": "sockets.js",
+  "author": {
+    "name": "Chieze Franklin",
+    "email": "chieze.franklin@gmail.com",
+    "url": "https://chieze-franklin.github.io"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chieze-Franklin/bolt-internal-sockets"
+  },
+  "dependencies": {
+    "socket.io": "*"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "sockets.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/Chieze-Franklin/bolt-internal-sockets/issues"
+  },
+  "maintainers": [
+    {
+      "name": "Chieze Franklin",
+      "email": "chieze.franklin@gmail.com"
+    }
+  ]
+}
