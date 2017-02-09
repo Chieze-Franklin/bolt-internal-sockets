@@ -1,25 +1,25 @@
+var utils = require("bolt-internal-utils");
+
 var __nameToSocketsMap = new Map();
 
 module.exports = {
-	createSocket: function(name, server){console.log("got here")
+	createSocket: function(name, server){
 		var io = require('socket.io').listen(server);
 		io.sockets.on("connection", function (socket) {
-			console.log("/////////////////////////Successfully connected to socket!!!");
+			socket.join(name);
 
-			socket.send(JSON.stringify({
-				type: 'serverMessage',
-				message: 'Hello World'
-			}));
-			socket.on('message', function(message){
-				console.log("/////////////////////////Successfully received message!!!");
-				message = JSON.parse(message);
-				if(message.type == 'userMessage') {
-					socket.broadcast.send(JSON.stringify(message));
-					message.type = 'myMessage';
-					socket.send(JSON.stringify(message));
+			//*socket.on('message', function(message){});
+			
+			socket.on('disconnect', function() {
+				var name;
+				for (var entry of __nameToSocketsMap) {
+					if (entry[1].id === socket.id) { //value === socket.id
+						name = entry[0]; //name = key
+						break;
+					}
 				}
+				if(!utils.Misc.isNullOrUndefined(name)) __nameToSocketsMap.delete(name);
 			});
-			socket.on('disconnect', function() {console.log("/////////////////////////Successfully disconnected from socket!!!");});
 
 			__nameToSocketsMap.set(name, socket);
 		});
