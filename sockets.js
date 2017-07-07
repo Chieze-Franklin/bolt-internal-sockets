@@ -13,18 +13,32 @@ module.exports = {
 			socket.on('disconnect', function() {
 				var name;
 				for (var entry of __nameToSocketsMap) {
-					if (entry[1].id === socket.id) { //value === socket.id
-						name = entry[0]; //name = key
+					var breakOuterLoop = false;
+					var sockets = entry[1] || []; //the value, which is expected to be an array
+
+					for (index = 0; index < sockets.length; index++) {
+						if (sockets[index].id === socket.id) {
+							sockets.splice(index, 1);
+							name = entry[0]; //name = key
+							breakOuterLoop = true;
+							break;
+						}
+					}
+
+					if (breakOuterLoop) {
+						__nameToSocketsMap.set(name, sockets);
 						break;
 					}
 				}
-				if(!utils.Misc.isNullOrUndefined(name)) __nameToSocketsMap.delete(name);
 			});
 
-			__nameToSocketsMap.set(name, socket);
+			//get existing array
+			var sockets = __nameToSocketsMap.get(name) || [];
+			sockets.push(socket);
+			__nameToSocketsMap.set(name, sockets);
 		});
 	},
-	getSocket: function(name){
+	getSockets: function(name){
 		return __nameToSocketsMap.get(name);
 	}
 };
