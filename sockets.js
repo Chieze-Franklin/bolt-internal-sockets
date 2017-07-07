@@ -39,6 +39,6 @@ module.exports = {
 		});
 	},
 	getSockets: function(name){
-		return __nameToSocketsMap.get(name);
+		return __nameToSocketsMap.get(name) || [];
 	}
 };
