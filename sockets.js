@@ -9,6 +9,16 @@ module.exports = {
 			socket.join(name);
 
 			//*socket.on('message', function(message){});
+
+			//send connection event
+			var event = {
+				body: {},
+				name: 'server-connected',
+				publisher: 'bolt',
+				time: new Date(),
+				dispatchTime: new Date()
+			};
+			socket.send(JSON.stringify(event));
 			
 			socket.on('disconnect', function() {
 				var name;

@@ -1,7 +1,7 @@
 {
   "name": "bolt-internal-sockets",
   "description": "internal module used for various types of validations",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "sockets.js",
   "author": {
     "name": "Chieze Franklin",
